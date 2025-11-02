@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>3726mdpl — Puisi Gunung & Danau</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#eaf7ff 0%,#ffffff 100%);height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;position:relative;}
+    .mountain{position:absolute;bottom:20vh;left:0;width:100%;height:40vh;z-index:0;background:linear-gradient(to top,#b3e5fc 0%,transparent 100%);overflow:hidden;}
+    .mountain svg{position:absolute;bottom:0;left:0;width:100%;height:100%;}
+    .lake{position:absolute;bottom:0;left:0;width:100%;height:25vh;overflow:hidden;background:linear-gradient(to top,rgba(179,229,252,0.9),rgba(255,255,255,0));z-index:0;}
+    .lake svg{width:100%;height:100%;position:absolute;bottom:0;left:0;opacity:0.6;animation:ripple 6s ease-in-out infinite alternate;}
+    @keyframes ripple{0%{transform:scaleY(1) translateY(0);}100%{transform:scaleY(1.05) translateY(-2%);}}
+    .cloud{position:absolute;background:rgba(255,255,255,0.9);border-radius:50%;filter:blur(20px);opacity:0.7;animation:moveCloud linear infinite;}
+    @keyframes moveCloud{from{transform:translateX(-10vw);}to{transform:translateX(110vw);}}
+    .sparkle{position:absolute;width:5px;height:5px;background:rgba(173,216,230,0.9);border-radius:50%;box-shadow:0 0 8px rgba(173,216,230,0.9);animation:twinkle 6s infinite ease-in-out;}
+    @keyframes twinkle{0%,100%{opacity:0.2;transform:scale(0.8);}50%{opacity:1;transform:scale(1.5);}}
+    .intro{position:fixed;inset:0;background:linear-gradient(135deg,#e0f3ff,#fff);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;animation:fadeOut 1.5s ease 3s forwards;}
+    .intro h1{font-family:'Playfair Display',serif;font-size:52px;color:#1a1327;animation:fadeIn 2s ease forwards;}
+    .intro p{color:#555;margin-top:14px;animation:fadeInUp 2s ease .6s forwards;opacity:0;}
+    @keyframes fadeOut{to{opacity:0;visibility:hidden;}}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+    main{position:relative;width:100%;height:100%;overflow:hidden;z-index:1;}
+    .page{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;text-align:center;backdrop-filter:blur(6px);transition:opacity 1s ease,transform 1s ease;animation:paperWave 8s ease-in-out infinite alternate;}
+    .page.hidden{opacity:0;transform:translateY(30px);pointer-events:none;}
+    @keyframes paperWave{0%{transform:rotate(0.3deg) translateY(0);}50%{transform:rotate(-0.3deg) translateY(3px);}100%{transform:rotate(0.3deg) translateY(0);}}
+    .page h1{font-family:'Playfair Display',serif;font-size:46px;margin-bottom:10px;color:#111;}
+    .page h2{font-size:16px;color:#666;margin-bottom:60px;}
+    .quote-text{font-family:'Playfair Display',serif;font-size:28px;line-height:1.6;color:#1e1b2d;white-space:pre-wrap;max-width:900px;text-align:center;opacity:0;animation:fadeQuote 2s ease forwards,writeIn 4s steps(50,end) forwards;}
+    @keyframes fadeQuote{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes writeIn{from{opacity:1;width:0ch;}to{opacity:1;width:100%;}}
+    .controls{position:fixed;bottom:40px;left:50%;transform:translateX(-50%);display:flex;gap:16px;z-index:5;}
+    button{border:none;padding:14px 22px;border-radius:10px;background:linear-gradient(90deg,#74c0fc,#a5e4ff);color:#fff;font-weight:600;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,0.15);transition:transform .3s ease,box-shadow .3s ease;}
+    button:hover{transform:scale(1.05);box-shadow:0 8px 24px rgba(116,192,252,0.25)}
+    .plane{position:absolute;opacity:0;animation:planeFly 6s linear forwards;}
+    @keyframes planeFly{0%{transform:translate(-10%,60%) rotate(-10deg);opacity:0;}40%{opacity:1;}100%{transform:translate(110%,10%) rotate(20deg);opacity:0;}}
+  </style>
+</head>
+<body>
+  <div class="intro">
+    <h1>3726mdpl</h1>
+    <p>About You — puisi yang menulis dirinya sendiri</p>
+  </div>
+  <div id="clouds"></div>
+  <div class="mountain">
+    <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+      <path fill="#a7d8f7" d="M0,256L60,234.7C120,213,240,171,360,149.3C480,128,600,128,720,144C840,160,960,192,1080,186.7C1200,181,1320,139,1380,117.3L1440,96L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
+      <path fill="#90caf9" d="M0,288L80,261.3C160,235,320,181,480,160C640,139,800,149,960,165.3C1120,181,1280,203,1360,213.3L1440,224L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
+    </svg>
+  </div>
+  <div class="lake">
+    <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+      <path fill="#b3e5fc" d="M0,64L80,74.7C160,85,320,107,480,133.3C640,160,800,192,960,186.7C1120,181,1280,139,1360,117.3L1440,96L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
+    </svg>
+  </div>
+  <main>
+    <section class="page" id="cover">
+      <h1>3726mdpl</h1>
+      <h2>About You</h2>
+    </section>
+    <section class="page hidden" id="quote"></section>
+  </main>
+  <div class="controls">
+    <button id="prev">◀ Sebelumnya</button>
+    <button id="next">Lanjut ▶</button>
+  </div>
+  <script>
+    const quotes=[
+      "jatuh cinta padamu adalah ketidak sengajaan yang jauh lebih indah dari ribuan hal yang pernah aku rencanakan",
+      "meskipun tidak sempat memilikinya, terimakasih atas bahagianya",
+      "cinta ga selalu tentang memiliki, bisa saja hanya mengagumi",
+      "selain mengagumi alam, di dunia ini juga terdapat manusia yang dapat dikagumi tapi tidak bisa dimiliki",
+      "di perjalanan yang panjang ini, jangan jadi milik siapa pun dulu, ya?",
+      "bahkan di bumi yang sangat luas ini, bagian paling menyenangkan adalah bertemu denganmu",
+      "jika hidup adalah sebuah buku, maka bertemu denganmu adalah bab favoritku."
+    ];
+    const cover=document.getElementById('cover');
+    const quote=document.getElementById('quote');
+    let index=0;
+    function showQuote(i){
+      quote.innerHTML=`<div class='quote-text'>“${quotes[i]}”\\n\\n- 3726mdpl</div>`;
+    }
+    showQuote(0);
+    function flipPage(dir){
+      cover.classList.add('hidden');
+      quote.classList.add('hidden');
+      setTimeout(()=>{
+        index=(index+dir+quotes.length)%quotes.length;
+        showQuote(index);
+        quote.classList.remove('hidden');
+        createPlane();
+        createSparkles();
+      },600);
+    }
+    document.getElementById('next').onclick=()=>flipPage(1);
+    document.getElementById('prev').onclick=()=>flipPage(-1);
+    function createPlane(){
+      const plane=document.createElement('div');
+      plane.className='plane';
+      plane.innerHTML='<svg width=\"60\" height=\"40\" viewBox=\"0 0 64 48\"><path d=\"M2 24L62 2L34 28L62 46Z\" fill=\"none\" stroke=\"#74c0fc\" stroke-width=\"1.6\"/></svg>';
+      plane.style.top=Math.random()*80+'%';
+      document.body.appendChild(plane);
+      setTimeout(()=>plane.remove(),6000);
+    }
+    function createSparkles(){
+      for(let i=0;i<10;i++){const s=document.createElement('div');s.className='sparkle';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.animationDuration=(3+Math.random()*4)+'s';document.body.appendChild(s);setTimeout(()=>s.remove(),7000);}
+    }
+    const clouds=document.getElementById('clouds');
+    for(let i=0;i<6;i++){const c=document.createElement('div');c.className='cloud';const size=100+Math.random()*200;c.style.width=size+'px';c.style.height=size*0.6+'px';c.style.top=Math.random()*80+'%';c.style.left=Math.random()*100+'%';c.style.animationDuration=(60+Math.random()*60)+'s';clouds.appendChild(c);}
+    createSparkles();
+  </script>
+</body>
+</html>
